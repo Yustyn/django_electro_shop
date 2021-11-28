@@ -39,9 +39,12 @@
 </head>
 
 <body>
-
+    {% include './layouts/header.html' %}
+    {% include './layouts/navigate.html' %}
     {% block content %}
     {% endblock %}
+    {% include './layouts/newsletter.html' %}
+    {% include './layouts/footer.html' %}
 
     <!-- jQuery Plugins -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
