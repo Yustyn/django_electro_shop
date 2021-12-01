@@ -304,10 +304,10 @@
                                 <form action="{% url 'cart:cart_add' product_id=product.id %}" method="POST">
                                     {{ cart_product_form }}
                                     {% csrf_token %}
-                                    <input class="add-to-cart-btn btn"
+                                    <button class="add-to-cart-btn btn"
                                         href="{% url 'cart:cart_add' product_id=product.id %}"><i
-                                        class="fa fa-shopping-cart"></i>add to
-                                    cart</input>
+                                            class="fa fa-shopping-cart"></i>add to
+                                        cart</button>
                                 </form>
                             </div>
                         </div>
