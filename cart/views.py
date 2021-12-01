@@ -17,6 +17,8 @@ def cart_add(request, product_id):
         cart.add(product=product,
                  quantity=cd['quantity'],
                  update_quantity=cd['update'])
+        count = cart.__len__()
+        print(count)
     return redirect('cart:cart_detail')
 
 
@@ -29,4 +31,5 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
-    return render(request, 'cart/detail.html', {'cart': cart})
+    count = cart.__len__()
+    return render(request, 'cart/detail.html', {'cart': cart, 'count': cart.__len__()})
