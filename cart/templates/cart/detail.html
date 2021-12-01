@@ -1,56 +1,53 @@
 {% extends '../base.html' %}
 {% load static %}
-{% block title %}- Cart{% endblock %}
+{% block title %}Cart{% endblock %}
 {% block content %}
-<h1>CART</h1>
+<h1>CART</h1>  
+
 <hr>
-<div id="cart">
-    <table class="cart">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Remove</th>
-                <th>Unit price</th>
-                <th>Total price</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart %}
-            {% with product=item.product %}
-            <tr>
-                <td><img src="
-                    {% if product.main_photo %}
-                    {{ product.main_photo.url }}
-                    {% else %}
-                    {% static 'img/placeholder-image.png' %}
-                    {% endif %}" alt="{{ product.name }}"></td>
-                <td>{{ product.name}}</td>
-                <td>{{ product.quantity }}</td>
-                <td>
-                    <a href="{% url 'cart:cart_remove' product_id=product.id %}">Remove</a>
-                </td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.total_price }}</td>
-            </tr>
-            {% endwith %}
-            {% endfor %}
+    <div id="cart">
+        <table class="cart">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Remove</th>
+                    <th>Unit price</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                    {% with product=item.product %}
+                <tr>
+                    <td>
+                        <img width="50px" src="{% if product.main_photo %}{{ product.main_photo.url }}{% else %}{% static 'img/placeholder.png' %}{% endif %}" alt="{{ product.name }}">
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>
+                        <a href="{% url 'cart:cart_remove' product_id=product.id %}">Remove</a>
+                    </td>
+                    <td>{{ product.price }}</td>
 
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>Total</th>
-                <th colspan="4"></th>
-                <th>$ {{ cart.get_total_price }}</th>
-
-            </tr>
-        </tfoot>
-    </table>
-    <p>
-        <a href="{% url 'shop:store' %}" class="btn light">Continue shopping</a>
-        <a href="#" class="btn">Checkout</a>
-    </p>
-</div>
-
+                    <td>{{ product.total_price }}</td>
+                </tr>
+                    {% endwith %}
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th colspan="4"></th>
+                    <th>${{ cart.get_total_price }}</th>
+                    
+                </tr>
+            </tfoot>
+        </table>
+        <p>
+            <a href="{% url 'shop:store' %}" class="btn light">Continue shopping</a>
+            <a href="#" class="btn">Checkout</a>
+        </p>
+    </div>
 {% endblock %}
