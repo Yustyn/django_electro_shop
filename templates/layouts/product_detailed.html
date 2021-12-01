@@ -9,19 +9,42 @@
             <div class="col-md-5 col-md-push-2">
                 <div id="product-main-img">
                     <div class="product-preview">
-                        <img src="{% static './img/product01.png' %}" alt="">
+                        <img src="
+                                {% if product_detail.main_photo %}
+                                {{ product_detail.main_photo.url }}
+                                {% else %}
+                                {% static 'img/placeholder-image.png' %}
+                                {% endif %}" alt="{{ product_detail.name }}">
                     </div>
 
                     <div class="product-preview">
-                        <img src="{% static './img/product03.png' %}" alt="">
+                        {% if product_detail.photo_1 %}
+                        <img src="
+                                {% if product_detail.photo_1 %}
+                                {{ product_detail.photo_1.url }}
+                                {% else %}
+                                {% static 'img/placeholder-image.png' %}
+                                {% endif %}" alt="{{ product_detail.name }}">{% endif %}
                     </div>
 
                     <div class="product-preview">
-                        <img src="{% static './img/product06.png' %}" alt="">
+                        {% if product_detail.photo_2 %}
+                        <img src="
+                                {% if product_detail.photo_2 %}
+                                {{ product_detail.photo_2.url }}
+                                {% else %}
+                                {% static 'img/placeholder-image.png' %}
+                                {% endif %}" alt="{{ product_detail.name }}">{% endif %}
                     </div>
 
                     <div class="product-preview">
-                        <img src="{% static './img/product08.png' %}" alt="">
+                        {% if product_detail.photo_3 %}
+                        <img src="
+                                {% if product_detail.photo_3 %}
+                                {{ product_detail.photo_3.url }}
+                                {% else %}
+                                {% static 'img/placeholder-image.png' %}
+                                {% endif %}" alt="{{ product_detail.name }}">{% endif %}
                     </div>
                 </div>
             </div>
@@ -31,19 +54,42 @@
             <div class="col-md-2  col-md-pull-5">
                 <div id="product-imgs">
                     <div class="product-preview">
-                        <img src="{% static './img/product01.png' %}" alt="">
+                        <img src="
+                                {% if product_detail.main_photo %}
+                                {{ product_detail.main_photo.url }}
+                                {% else %}
+                                {% static 'img/placeholder-image.png' %}
+                                {% endif %}" alt="{{ product_detail.name }}">
                     </div>
 
                     <div class="product-preview">
-                        <img src="{% static './img/product03.png' %}" alt="">
+                        {% if product_detail.photo_1 %}
+                        <img src="
+                                {% if product_detail.photo_1 %}
+                                {{ product_detail.photo_1.url }}
+                                {% else %}
+                                {% static 'img/placeholder-image.png' %}
+                                {% endif %}" alt="{{ product_detail.name }}">{% endif %}
                     </div>
 
                     <div class="product-preview">
-                        <img src="{% static './img/product06.png' %}" alt="">
+                        {% if product_detail.photo_2 %}
+                        <img src="
+                                {% if product_detail.photo_2 %}
+                                {{ product_detail.photo_2.url }}
+                                {% else %}
+                                {% static 'img/placeholder-image.png' %}
+                                {% endif %}" alt="{{ product_detail.name }}">{% endif %}
                     </div>
 
                     <div class="product-preview">
-                        <img src="{% static './img/product08.png' %}" alt="">
+                        {% if product_detail.photo_3 %}
+                        <img src="
+                                {% if product_detail.photo_3 %}
+                                {{ product_detail.photo_3.url }}
+                                {% else %}
+                                {% static 'img/placeholder-image.png' %}
+                                {% endif %}" alt="{{ product_detail.name }}">{% endif %}
                     </div>
                 </div>
             </div>
@@ -52,24 +98,27 @@
             <!-- Product details -->
             <div class="col-md-5">
                 <div class="product-details">
-                    <h2 class="product-name">product name goes here</h2>
+                    <h2 class="product-name">{{ product_detail.name }}</h2>
                     <div>
                         <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
+                            {% with ''|center:5 as range %}
+                            {% for _ in range %}
+                            {% if forloop.counter <= product_detail.rait %} <i class="fa fa-star"></i>
+                                {% else %}
+                                <i class="fa fa-star-o"></i>
+                                {% endif %}
+                                {% endfor %}
+                                {% endwith %}
                         </div>
+
                         <a class="review-link" href="#">10 Review(s) | Add your review</a>
                     </div>
                     <div>
-                        <h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
+                        <h3 class="product-price">${{ product_detail.price }}{% if product_detail.old_price %} <del
+                                class="product-old-price">${{ product_detail.old_price }} </del>{% endif %}</h3>
                         <span class="product-available">In Stock</span>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>{{ product_detail.description }}</p>
 
                     <div class="product-options">
                         <label>
@@ -138,12 +187,7 @@
                         <div id="tab1" class="tab-pane fade in active">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    <p>{{ product_detail.description }}
                                     </p>
                                 </div>
                             </div>
@@ -154,12 +198,7 @@
                         <div id="tab2" class="tab-pane fade in">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    <p>{{ product_detail.details }}
                                     </p>
                                 </div>
                             </div>

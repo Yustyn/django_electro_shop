@@ -27,6 +27,13 @@ def store(request, category_slug=None):
     })
 
 
+def product_page(request, id, slug):
+    product = get_object_or_404(Product, slug=slug, id=id)
+    cart_product_form = CartAddProductForm()
+    return render(request, 'pages/product.html', {'product_detail': product,
+                                                  'cart_product_form': cart_product_form})
+
+
 def checkout(request):
     return render(request, 'pages/checkout.html')
 

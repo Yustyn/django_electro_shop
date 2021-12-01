@@ -234,7 +234,9 @@
                             </div>
                             <div class="product-body">
                                 <p class="product-category">{{ product.category }}</p>
-                                <h3 class="product-name"><a href="{% url 'shop:product' %}">{{ product.name }}</a></h3>
+                                <h3 class="product-name"><a
+                                        href="{% url 'shop:product' product.id product.slug %}">{{product.name }}</a>
+                                </h3>
                                 <h4 class="product-price">${{ product.price }}{% if product.old_price %} <del
                                         class="product-old-price">${{ product.old_price }} </del>{% endif %}
                                 </h4>
@@ -302,8 +304,10 @@
                                 <form action="{% url 'cart:cart_add' product_id=product.id %}" method="POST">
                                     {{ cart_product_form }}
                                     {% csrf_token %}
-                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>add to
-                                        cart</button>
+                                    <input class="add-to-cart-btn btn"
+                                        href="{% url 'cart:cart_add' product_id=product.id %}"><i
+                                        class="fa fa-shopping-cart"></i>add to
+                                    cart</input>
                                 </form>
                             </div>
                         </div>
