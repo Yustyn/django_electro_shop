@@ -7,10 +7,11 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'product' %}">Product</a></li>
-                <li><a href="{% url 'checkout' %}">Checkout</a></li>
-                <li><a href="{% url 'store' %}">Store</a></li>
+                <li class="active"><a href="{% url 'shop:home' %}">Home</a></li>
+                <li><a href="{% url 'shop:product' %}">Product</a></li>
+                <li><a href="{% url 'shop:checkout' %}">Checkout</a></li>
+                <li><a href="{% url 'shop:store' %}">Store</a></li>
+                <li><a href="/cart">Cart</a></li>
 
             </ul>
             <!-- /NAV -->
