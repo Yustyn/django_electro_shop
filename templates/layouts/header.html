@@ -12,16 +12,24 @@
             </ul>
             <ul class="header-links pull-right">
                 <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                {% if user.get_username %}
+                <li><a href="/authenticate/login"><i class="fa fa-user-o"></i>{{ user.get_username }}</a></li>
+                <li><a href="#"> Log out</a></li>
+                {% else %}
+                <li><a href="/authenticate/login"><i class="fa fa-user-o"></i> Log in</a></li>
+                {% endif %}
             </ul>
         </div>
+
     </div>
+
     <!-- /TOP HEADER -->
 
     <!-- MAIN HEADER -->
     <div id="header">
         <!-- container -->
         <div class="container">
+
             <!-- row -->
             <div class="row">
                 <!-- LOGO -->
@@ -74,31 +82,31 @@
                             </a>
                             <div class="cart-dropdown">
                                 <div class="cart-list">
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="{% static './img/product01.png' %}" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
+                                    {% for product in cart.product_list %}
 
                                     <div class="product-widget">
+
                                         <div class="product-img">
-                                            <img src="{% static './img/product02.png' %}" alt="">
+                                            <img src="{% if product.main_photo %}{{ product.main_photo.url }}{% else %}
+                                             {% static 'img/placeholder.png' %}{% endif %}" alt="{{ product.name }}">
                                         </div>
                                         <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
+                                            <h3 class="product-name"><a
+                                                    href="{% url 'shop:product' product.id product.slug %}">
+                                                    {{product.name }}</a></h3>
+                                            <h4 class="product-price"><span class="qty">x</span>$
+                                                {{ product.price }}
+                                            </h4>
                                         </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                        <a href="{% url 'cart:cart_remove' product_id=product.id %}" class="delete"><i
+                                                class="fa fa-close"></i></a>
                                     </div>
+                                    {% endfor %}
+
                                 </div>
                                 <div class="cart-summary">
-                                    <small>3 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $2940.00</h5>
+                                    <small>{{ count }} Item(s) selected</small>
+                                    <h5>SUBTOTAL: ${{cart.subtotal}}</h5>
                                 </div>
                                 <div class="cart-btns">
                                     <a href="#">View Cart</a>
