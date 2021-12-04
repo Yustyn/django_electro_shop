@@ -75,14 +75,15 @@ def count(request):
 def cart(request):
     cart = request.session.get(settings.CART_SESSION_ID)
     count = 0
+    subtotal = 0
     if cart:
         cart_values = cart.values()
 
-        subtotal = 0
         for item in cart_values:
             count += item['quantity']
             subtotal += item['quantity']*float(item['price'])
 
         cart_items_id = cart.keys()
+
         product_list = Product.objects.filter(id__in=cart_items_id)
         return {'counts': count, 'product_list': product_list, 'carts': cart, 'subtotal': subtotal}
